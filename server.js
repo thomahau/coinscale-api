@@ -6,12 +6,12 @@ const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const { router: usersRouter } = require('./users');
-// const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
-const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
 
-mongoose.Promise = global.Promise;
+const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
+const { localStrategy, jwtStrategy } = require('./auth');
+
 const app = express();
+mongoose.Promise = global.Promise;
 
 app.use(morgan('common'));
 
@@ -34,17 +34,20 @@ app.use(
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/api/users/', usersRouter);
-app.use('/api/auth/', authRouter);
+const { router: usersRouter } = require('./routes/users');
+const { router: authRouter } = require('./routes/auth');
+
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 // A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
-});
+// app.get('/api/protected', jwtAuth, (req, res) => {
+//   return res.json({
+//     data: 'rosebud'
+//   });
+// });
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
