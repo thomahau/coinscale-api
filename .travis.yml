@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 services:
 - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: KwYWl91QNk/bByjoCxqYeqMuxCXt4VF25GKcpP8rK/nrE0Iey5x7nrmqYFZThdUSTqG7IzFYI8QqqgROdCjNTevl3tqSjqiUatt2LZUO20px6Q2MnhXa1wfnX7KfAkuIh7PrkppGyAMsvbdpHbeW9UMaP8/78JhaxAvek60fHIsFW8rn66gs7JJKbnhDS8SOUIh8KI4X68yT50JTjwnr+G1rRhjKb3N2aOXbM2VRw9QBmQsUvfSJexjcOEOtHO/cX5KDTMUojGqwG9XNRUlZ/xKVOWxT2+M6+YlHZqinBkp8mLsAXdZQ/k2XAlB5DDcv7yB2O095PVOmWihnemj9Wmg6jTPCtIBpH6iLmgHFJoNUYGwwXEkWJtzbeytqy7TZOTe6kX6nu6jQ25/s6u09rkb2W3DXLSSL189UnpY+IrH6l6wZwbCiAa80DVFdPbXIr8pCq+uk+STmXR4mGpo0RccfbGHhjm+25k8w9hsH4Z9pA0LEurzenlwxSW/FC2/DhMw9/kSC2TGubQusaAHuIei0qtqrHJzyZoSHP34wRWh9jJswZ8F0JEDx+oeHId886Bpg6ObOFoaZMwsfQvAbAW4wIf3QaEklNzE44+wdofonaBuy82b7YXxtLygPg6bphov8sGLgCNoKaCDyUn7ou9BoCRr+iK42RvZ5DBe6ofw=
+  app: coinscale
+  on:
+    repo: thomahau/coinscale-api
