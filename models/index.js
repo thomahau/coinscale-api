@@ -4,6 +4,6 @@ const mongoose = require('mongoose');
 const models = {};
 
 models.User = require('./user');
-// other models here
+models.Transaction = require('./transaction');
 
 module.exports = models;

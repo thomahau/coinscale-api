@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const TransactionSchema = mongoose.Schema({
-  timestamp: { type: Date, required: true },
+  date: { type: String, required: true },
   type: { type: String, required: true },
   symbol: { type: String, required: true },
   price: { type: Number, required: true },
@@ -16,7 +16,7 @@ const TransactionSchema = mongoose.Schema({
 TransactionSchema.methods.serialize = function() {
   return {
     id: this._id,
-    timestamp: this.timestamp,
+    date: this.date,
     type: this.type,
     symbol: this.symbol,
     price: this.price,
