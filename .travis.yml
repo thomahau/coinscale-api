@@ -9,3 +9,6 @@ deploy:
   app: coinscale
   on:
     repo: thomahau/coinscale-api
+env:
+  global:
+    secure: BP/J8IrGgu9/WUBARUJadMPfGe9TrHaa3keNl6MgnZh0y/iT1tFEyMPLnLL5a8vrcvwuKPLft16JIMFDMIxPtsjOELME3k6KABOPsQROwtBvIoRXE+8eAe+v4GH/YZfR+GtpdSuTplnJoIERCcxVABa/hjFFngEZGlwUAl1cpGWebnGR5DH/Cu62//DcKMxr5vm+LRDf1MxIaXhqPAwiZzYmBWNKzMicQpOCh83NTwu5bvBHB62+82X9ZdN3tW0gSKYZfoHnOPknUnhD/Xr/KBw3FvOtizTC9iqBTp1Goj+TWySfCv7r6V6j9N/VNmL1P0pJC64mu76akubEpLg1FD/+FENxFtQYjpXOUvkAWHQlLxoDUnp7vqOvTzd+RwLDQ4sfd+T7kV78J8gMxiPjeVrd6XLaofQRVv/qTJk4WHEmqARZ1C073QE2APqPFwyvGhJOHczEIh5Pc9aAh7l4zePB0Te2wqvRsUdsNPc9k61MOXuqmbKGGYYAOH+OfrthpldRVxCEVE5SB+rQ/a0qvT9Lk6lpXSlJzyiWKcdecEkSu8lP2DpbFvojYRMo1OTzd4JgjqTLxFmy385hR4Liydk9iaaydP/gbwjGpnJLJVi8SsiG0t3e+vN/+My2c/700VJvJNRjC7joy9f2wIp/d/zKYiLU2j95ur20jM4EYKs=
