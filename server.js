@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
 const { localStrategy, jwtStrategy } = require('./auth');
@@ -36,10 +35,12 @@ passport.use(jwtStrategy);
 
 const { router: usersRouter } = require('./routes/users');
 const { router: authRouter } = require('./routes/auth');
+const { router: portfolioRouter } = require('./routes/portfolio');
 const { router: transactionsRouter } = require('./routes/transactions');
 
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/portfolio', portfolioRouter);
 app.use('/api/transactions', transactionsRouter);
 
 app.use('*', (req, res) => {

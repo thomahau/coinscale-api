@@ -6,17 +6,16 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const { app, runServer, closeServer } = require('../server');
 const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
-const models = require('../models');
 
-const User = models.User;
-const Transaction = models.Transaction;
+const User = mongoose.model('User');
+const Transaction = mongoose.model('Transaction');
 const expect = chai.expect;
 let user;
 
 chai.use(chaiHttp);
 
-function seedPortfolioData() {
-  console.info('Seeding portfolio data');
+function seedTransactionData() {
+  console.info('Seeding transaction data');
   const seedData = [];
 
   for (let i = 0; i <= 5; i++) {
@@ -80,7 +79,7 @@ describe('Protected transactions API resource', function() {
       })
       .then(_user => {
         user = _user;
-        return seedPortfolioData();
+        return seedTransactionData();
       });
   });
 
