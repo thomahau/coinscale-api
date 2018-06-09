@@ -5,13 +5,12 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-// const { router: usersRouter } = require('./users');
-// const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
-const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
 
-mongoose.Promise = global.Promise;
+const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
+const { localStrategy, jwtStrategy } = require('./auth');
+
 const app = express();
+mongoose.Promise = global.Promise;
 
 app.use(morgan('common'));
 
@@ -34,24 +33,20 @@ app.use(
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/api/users/', usersRouter);
-app.use('/api/auth/', authRouter);
+const { router: usersRouter } = require('./routes/users');
+const { router: authRouter } = require('./routes/auth');
+const { router: portfolioRouter } = require('./routes/portfolio');
+const { router: transactionsRouter } = require('./routes/transactions');
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
-});
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/portfolio', portfolioRouter);
+app.use('/api/transactions', transactionsRouter);
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
 
-// Referenced by both runServer and closeServer. closeServer
-// assumes runServer has run and set `server` to a server object
 let server;
 
 function runServer(databaseUrl, port = PORT) {
