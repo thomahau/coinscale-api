@@ -4,9 +4,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
-const cors = require('cors');
+// const cors = require('cors');
 
-const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
+const { PORT, DATABASE_URL } = require('./config');
 const { localStrategy, jwtStrategy } = require('./auth');
 
 const app = express();
@@ -35,11 +35,13 @@ passport.use(jwtStrategy);
 
 const { router: usersRouter } = require('./routes/users');
 const { router: authRouter } = require('./routes/auth');
+const { router: pricesRouter } = require('./routes/prices');
 const { router: portfolioRouter } = require('./routes/portfolio');
 const { router: transactionsRouter } = require('./routes/transactions');
 
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/prices', pricesRouter);
 app.use('/api/portfolio', portfolioRouter);
 app.use('/api/transactions', transactionsRouter);
 
