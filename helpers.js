@@ -7,12 +7,22 @@ function getStartDate(date) {
 }
 
 function parsePriceData(data) {
+  //   const priceData = [];
   const priceData = data.map(coin => {
-    return {
+    const coinDatum = {
       currency: coin.currency,
-      current: coin.close,
-      sevenDaysAgo: coin.open
+      current: coin.close
     };
+    const momentA = moment(coin.close_timestamp);
+    const momentB = moment(coin.open_timestamp);
+    // Check if coin price seven days earlier exists
+    if (momentA.diff(momentB, 'days') === 7) {
+      coinDatum.sevenDaysAgo = coin.open;
+    } else {
+      coinDatum.sevenDaysAgo = 'N/A';
+    }
+
+    return coinDatum;
   });
 
   return priceData;

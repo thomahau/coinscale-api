@@ -20,7 +20,7 @@ function tearDownDb() {
 describe('Protected price data API resource', function() {
   const username = 'exampleUser';
   const password = 'examplePassword';
-  const date = '2017-01-01';
+  const date = '2017-06-30';
   const token = jwt.sign(
     {
       user: {
