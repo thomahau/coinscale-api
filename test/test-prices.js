@@ -79,10 +79,11 @@ describe('Protected price data API resource', function() {
         .then(res => {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
+          console.log(res.body.priceData);
           expect(res.body.priceData).to.be.an('array');
           res.body.priceData.forEach(coinDatum => {
             expect(coinDatum).to.be.an('object');
-            expect(coinDatum).to.include.keys('currency', 'current', 'sevenDaysAgo');
+            expect(coinDatum).to.include.keys('currency', 'name', 'current', 'sevenDaysAgo');
           });
         });
     });
