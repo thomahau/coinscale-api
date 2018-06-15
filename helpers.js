@@ -1,5 +1,5 @@
 const moment = require('moment');
-const coinWatchList = [
+const coinWatchlist = [
   'BTC',
   'ETH',
   'XRP',
@@ -24,24 +24,24 @@ function getStartDate(date) {
 }
 
 function parsePriceData(data) {
-  const priceData = [];
-  data.forEach(coin => {
-    if (coinWatchList.includes(coin.currency)) {
-      const coinDatum = {
-        currency: coin.currency,
-        current: coin.close
-      };
-      const momentA = moment(coin.close_timestamp);
-      const momentB = moment(coin.open_timestamp);
-      // Check if coin price seven days earlier exists
-      if (momentA.diff(momentB, 'days') === 7) {
-        coinDatum.sevenDaysAgo = coin.open;
-      } else {
-        coinDatum.sevenDaysAgo = 'N/A';
-      }
-
-      priceData.push(coinDatum);
+  // filter to find only the coins in our watchlist
+  const filteredData = data.filter(coin => coinWatchlist.includes(coin.currency));
+  // extract and parse the data client needs
+  const priceData = filteredData.map(coin => {
+    const coinDatum = {
+      currency: coin.currency,
+      current: coin.close
+    };
+    const momentA = moment(coin.close_timestamp);
+    const momentB = moment(coin.open_timestamp);
+    // Check if coin price seven days earlier exists
+    if (momentA.diff(momentB, 'days') === 7) {
+      coinDatum.sevenDaysAgo = coin.open;
+    } else {
+      coinDatum.sevenDaysAgo = 'N/A';
     }
+
+    return coinDatum;
   });
 
   return priceData;
