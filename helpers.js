@@ -24,7 +24,8 @@ function getStartDate(date) {
 }
 
 function parsePriceData(data) {
-  const priceData = data.map(coin => {
+  const priceData = [];
+  data.forEach(coin => {
     if (coinWatchList.includes(coin.currency)) {
       const coinDatum = {
         currency: coin.currency,
@@ -39,7 +40,7 @@ function parsePriceData(data) {
         coinDatum.sevenDaysAgo = 'N/A';
       }
 
-      return coinDatum;
+      priceData.push(coinDatum);
     }
   });
 
