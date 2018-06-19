@@ -13,7 +13,11 @@ const User = models.User;
 router.get('/', jwtAuth, (req, res) => {
   User.findOne({ username: req.user.username })
     .then(user => {
-      return Portfolio.findOne({ user });
+      return Portfolio.findOneAndUpdate(
+        { user },
+        { user },
+        { upsert: true, new: true, runValidators: true, setDefaultsOnInsert: true }
+      );
     })
     .then(portfolio => {
       res.json({
@@ -26,19 +30,19 @@ router.get('/', jwtAuth, (req, res) => {
     });
 });
 
-router.post('/', jwtAuth, jsonParser, (req, res) => {
-  User.findOne({ username: req.user.username })
-    .then(user => {
-      return Portfolio.create({
-        user: user
-      });
-    })
-    .then(portfolio => res.status(201).json(portfolio.serialize()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
-    });
-});
+// router.post('/', jwtAuth, jsonParser, (req, res) => {
+//   User.findOne({ username: req.user.username })
+//     .then(user => {
+//       return Portfolio.create({
+//         user: user
+//       });
+//     })
+//     .then(portfolio => res.status(201).json(portfolio.serialize()))
+//     .catch(err => {
+//       console.error(err);
+//       res.status(500).json({ message: 'Internal server error' });
+//     });
+// });
 
 router.put('/:id', jwtAuth, jsonParser, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {

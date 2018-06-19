@@ -122,27 +122,44 @@ describe('Protected portfolio API resource', function() {
           expect(resPortfolio.holdings).to.deep.equal(portfolio.holdings);
         });
     });
-  });
 
-  describe('POST endpoint', function() {
-    it('should add a new portfolio with default values', function() {
-      const newPortfolio = {
-        user
-      };
+    it('should add a new portfolio with default values if none exists', function() {
+      const username2 = 'exampleUser2';
+      const password2 = 'examplePassword2';
+      const token2 = jwt.sign(
+        {
+          user: {
+            username2
+          }
+        },
+        JWT_SECRET,
+        {
+          algorithm: 'HS256',
+          subject: username,
+          expiresIn: '7d'
+        }
+      );
+
+      User.hashPassword(password2)
+        .then(password => {
+          return User.create({ username2, password2 });
+        })
+        .then(_user => {
+          user2 = _user;
+        });
 
       return chai
         .request(app)
-        .post('/api/portfolio')
-        .set('authorization', `Bearer ${token}`)
-        .send(newPortfolio)
+        .get('/api/portfolio')
+        .set('authorization', `Bearer ${token2}`)
         .then(res => {
-          expect(res).to.have.status(201);
+          expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
-          expect(res.body).to.include.keys('id', 'balance', 'holdings');
-          expect(res.body.id).to.not.be.null;
-          expect(res.body.balance).to.equal(20000); // default value
-          expect(res.body.holdings).deep.equal({}); // default value
+          expect(res.body.portfolio).to.include.keys('id', 'balance', 'holdings');
+          expect(res.body.portfolio.id).to.not.be.null;
+          expect(res.body.portfolio.balance).to.equal(20000); // default value
+          expect(res.body.portfolio.holdings).deep.equal({}); // default value
         });
     });
   });
