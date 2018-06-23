@@ -13,7 +13,7 @@ const User = models.User;
 router.get('/', jwtAuth, (req, res) => {
   User.findOne({ username: req.user.username })
     .then(user => {
-      return Transaction.find({ user });
+      return Transaction.find({ user }).sort('-date');
     })
     .then(transactions => {
       res.json({

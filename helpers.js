@@ -11,11 +11,16 @@ const coinWatchlist = {
   DASH: 'Dash',
   DOGE: 'Dogecoin',
   XEM: 'NEM',
-  XMR: 'Monero'
+  XMR: 'Monero',
+  TRX: 'TRON',
+  NEO: 'NEO',
+  ETC: 'Ethereum Classic',
+  REP: 'Augur',
+  STEEM: 'Steem',
+  LSK: 'Lisk',
+  WAVES: 'Waves',
+  ZEC: 'Zcash'
 };
-// BCH first date: 2017-07-27
-// EOS first date: 2017-06-28
-// ADA first date: 2017-10-01
 
 function getStartDate(date) {
   return moment(date)
