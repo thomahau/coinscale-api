@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 const cors = require('cors');
 
-const { PORT, DATABASE_URL } = require('./config');
+const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
 const { localStrategy, jwtStrategy } = require('./auth');
 
 const app = express();
