@@ -14,7 +14,7 @@ mongoose.Promise = global.Promise;
 
 app.use(morgan('common'));
 
-CORS;
+// CORS
 app.use(
   cors({
     origin: CLIENT_ORIGIN
