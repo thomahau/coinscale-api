@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 
-const { PORT, DATABASE_URL, CLIENT_ORIGIN } = require('./config');
+const { PORT, DATABASE_URL } = require('./config');
 const { localStrategy, jwtStrategy } = require('./auth');
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(morgan('common'));
 
 // CORS
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', CLIENT_ORIGIN);
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
   if (req.method === 'OPTIONS') {
