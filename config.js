@@ -8,5 +8,5 @@ exports.NOMICS_API_KEY = process.env.NOMICS_API_KEY;
 exports.CLIENT_ORIGIN =
   process.env.CLIENT_ORIGIN ||
   global.CLIENT_ORIGIN ||
-  'http://localhost:3000/' ||
-  'https://coinscale.netlify.com/';
+  'https://coinscale.netlify.com/' ||
+  'http://localhost:3000/';
