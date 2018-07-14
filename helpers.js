@@ -1,25 +1,45 @@
 const moment = require('moment');
 const coinWatchlist = {
-  BTC: 'Bitcoin',
-  ETH: 'Ethereum',
-  XRP: 'Ripple',
-  BCH: 'Bitcoin Cash',
-  EOS: 'EOS',
-  LTC: 'Litecoin',
   ADA: 'Cardano',
-  XLM: 'Stellar',
+  ARDR: 'Ardor',
+  BCH: 'Bitcoin Cash',
+  BCN: 'Bytecoin',
+  BNB: 'Binance Coin',
+  BTC: 'Bitcoin',
+  BTS: 'BitShares',
   DASH: 'Dash',
+  DCR: 'Decred',
   DOGE: 'Dogecoin',
-  XEM: 'NEM',
-  XMR: 'Monero',
-  TRX: 'TRON',
-  NEO: 'NEO',
+  EMC: 'Emercoin',
+  EOS: 'EOS',
   ETC: 'Ethereum Classic',
+  ETH: 'Ethereum',
+  FCT: 'Factom',
+  GAME: 'GameCredits',
+  GNT: 'Golem',
+  GRC: 'GridCoin',
+  ICN: 'Iconomi',
+  LSK: 'Lisk',
+  LTC: 'Litecoin',
+  MAID: 'MaidSafeCoin',
+  MONA: 'MonaCoin',
+  NEO: 'NEO',
+  NMC: 'Namecoin',
+  NXT: 'Nxt',
+  OMG: 'OmiseGO',
+  PPC: 'Peercoin',
   REP: 'Augur',
   STEEM: 'Steem',
-  LSK: 'Lisk',
+  STRAT: 'Stratis',
+  TRX: 'TRON',
+  VEN: 'VeChain',
   WAVES: 'Waves',
-  ZEC: 'Zcash'
+  XEM: 'NEM',
+  XLM: 'Stellar',
+  XMR: 'Monero',
+  XRP: 'Ripple',
+  ZEC: 'Zcash',
+  ZRX: '0x'
 };
 
 function getStartDate(date) {
@@ -29,20 +49,20 @@ function getStartDate(date) {
 }
 
 function parsePriceData(data) {
-  // filter to find only the coins in our watchlist
+  // Filter to find only the coins in our watchlist
   const filteredData = data.filter(coin => Object.keys(coinWatchlist).includes(coin.currency));
-  // extract and parse the data client needs
+  // Extract and parse the data client needs
   const priceData = filteredData.map(coin => {
     const coinDatum = {
       currency: coin.currency,
       name: coinWatchlist[coin.currency],
-      current: coin.close
+      current: _round(coin.close)
     };
     const momentA = moment(coin.close_timestamp);
     const momentB = moment(coin.open_timestamp);
     // Check if coin price seven days earlier exists
     if (momentA.diff(momentB, 'days') === 7) {
-      coinDatum.sevenDaysAgo = coin.open;
+      coinDatum.sevenDaysAgo = _round(coin.open);
     } else {
       coinDatum.sevenDaysAgo = 'N/A';
     }
@@ -51,6 +71,17 @@ function parsePriceData(data) {
   });
 
   return priceData;
+}
+
+function _round(value, decimals = 2) {
+  // Round input to standardized number of decimals
+  if (Math.abs(value) >= 1) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
+      .toFixed(decimals)
+      .toString();
+  } else {
+    return value;
+  }
 }
 
 module.exports = {
