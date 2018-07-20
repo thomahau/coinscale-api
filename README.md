@@ -65,15 +65,17 @@ Returns array of price data for a basket of cryptocurrencies in the 7-day interv
 - **Success response example:**
 
 ```
-[
-    {
-        currency: "BTC",
-        name: "Bitcoin",
-        current: "1017.20",
-        sevenDaysAgo: "914.20"
-    },
-    ...
-]
+{ priceData:
+    [
+        {
+            currency: "BTC",
+            name: "Bitcoin",
+            current: "1017.20",
+            sevenDaysAgo: "914.20"
+        },
+        ...
+    ]
+}
 ```
 
 ---
@@ -89,10 +91,15 @@ Returns user's portfolio, or creates and returns new portfolio if one does not e
 - **Success response example:**
 
 ```
-{
-    id: "5b51ee16a0e0b72574d2c21d",
-    balance: 20000,
-    holdings: {}
+{ portfolio:
+    {
+        id: "5b51ee16a0e0b72574d2c21d",
+        balance: 18500,
+        holdings: {
+            BTC: 1,
+            ETH: 20
+        }
+    }
 }
 ```
 
@@ -106,12 +113,14 @@ Updates user's portfolio.
 - **Data params:**
 
 ```
-{
-    id: [string],
-    balance: [number],
-    holdings: {
-        [string]: [number],
-        ...
+{ portfolio:
+    {
+        id: [string],
+        balance: [number],
+        holdings: {
+            [string]: [number],
+            ...
+        }
     }
 }
 ```
@@ -131,17 +140,19 @@ Returns array of transactions for user.
 - **Success response example:**
 
 ```
-[
-    {
-        id: "5b51ee16a0e0b72574d2c21d",
-        date: "2017-01-01",
-        type: "Buy",
-        symbol: "BTC",
-        price: "1017.20",
-        amount: 1
-    },
-    ...
-]
+{ transactions:
+    [
+        {
+            id: "5b51ee16a0e0b72574d2c21d",
+            date: "2017-01-01",
+            type: "Buy",
+            symbol: "BTC",
+            price: "1017.20",
+            amount: 1
+        },
+        ...
+    ]
+}
 ```
 
 ### Create transaction
