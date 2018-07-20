@@ -18,7 +18,6 @@ const coinWatchlist = {
   ETC: 'Ethereum Classic',
   ETH: 'Ethereum',
   GAME: 'GameCredits',
-  GNT: 'Golem',
   ICX: 'ICON',
   KMD: 'Komodo',
   LSK: 'Lisk',
@@ -36,6 +35,7 @@ const coinWatchlist = {
   SYS: 'Syscoin',
   TRX: 'TRON',
   VEN: 'VeChain',
+  VTC: 'Vertcoin',
   WAVES: 'Waves',
   XCP: 'Counterparty',
   XEM: 'NEM',
@@ -63,9 +63,10 @@ function parsePriceData(data) {
       name: coinWatchlist[coin.currency],
       current: _round(coin.close)
     };
+    // Check if coin price seven days earlier exists
     const momentA = moment(coin.close_timestamp);
     const momentB = moment(coin.open_timestamp);
-    // Check if coin price seven days earlier exists
+
     if (momentA.diff(momentB, 'days') === 7) {
       coinDatum.sevenDaysAgo = _round(coin.open);
     } else {

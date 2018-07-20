@@ -10,7 +10,6 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 const NOMICS_API_URI = 'https://api.nomics.com/v1/currencies/interval';
 
 router.get('/', jwtAuth, (req, res) => {
-  console.log('Requesting price data...');
   if (!req.query.date) {
     const message = 'Missing date in request query.';
     console.error(message);
