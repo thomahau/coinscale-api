@@ -90,7 +90,7 @@ Returns user's portfolio, or creates and returns new portfolio if one does not e
 
 ```
 {
-    id: "5b51ee16a0e0b72574d2c21d"
+    id: "5b51ee16a0e0b72574d2c21d",
     balance: 20000,
     holdings: {}
 }
