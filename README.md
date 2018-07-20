@@ -107,6 +107,7 @@ Updates user's portfolio.
 
 ```
 {
+    id: [string],
     balance: [number],
     holdings: {
         [string]: [number],
@@ -132,7 +133,7 @@ Returns array of transactions for user.
 ```
 [
     {
-        id: "5b51ee16a0e0b72574d2c21d"
+        id: "5b51ee16a0e0b72574d2c21d",
         date: "2017-01-01",
         type: "Buy",
         symbol: "BTC",
