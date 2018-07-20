@@ -147,7 +147,7 @@ Returns array of transactions for user.
             date: "2017-01-01",
             type: "Buy",
             symbol: "BTC",
-            price: "1017.20",
+            price: 1017.20,
             amount: 1
         },
         ...
