@@ -8,7 +8,7 @@ This RESTful API backend serves Coinscale, a cryptocurrency trading simulator. F
 
 Creates new user and sends username in response.
 
-- **URL:** /api/users
+- **URL:** `/api/users`
 - **Method:** `POST`
 - **URL params:** None
 - **Data params:**
@@ -28,7 +28,7 @@ Creates new user and sends username in response.
 
 Authenticates existing user and returns JWT token.
 
-- **URL:** /api/auth/login
+- **URL:** `/api/auth/login`
 - **Method:** `POST`
 - **URL params:** None
 - **Data params:**
@@ -46,25 +46,23 @@ Authenticates existing user and returns JWT token.
 
 Returns fresh JWT token.
 
-- **URL:** /api/auth/refresh
+- **URL:** `/api/auth/refresh`
 - **Method:** `POST`
 - **URL params:** None
 - **Data params:** None
-
-* **Success response example:** `{ authToken: [string] }`
+- **Success response example:** `{ authToken: [string] }`
 
 ---
 
 ### Show price data
 
-Returns array of price data for a basket of cryptocurrencies in the 7-day interval leading up to query parameter {date}.
+Returns array of price data for a basket of cryptocurrencies in the 7-day interval leading up to query parameter `{date}`.
 
-- **URL:** /api/prices?date={date}
+- **URL:** `/api/prices?date={date}`
 - **Method:** `GET`
 - **Query params:** `date=[string]`
 - **Data params:** None
-
-* **Success response example:**
+- **Success response example:**
 
 ```
 [
@@ -82,17 +80,17 @@ Returns array of price data for a basket of cryptocurrencies in the 7-day interv
 
 ### Show portfolio
 
-Returns json data for user's portfolio, or creates and returns default portfolio if one does not exist.
+Returns user's portfolio, or creates and returns new portfolio if one does not exist.
 
-- **URL:** /api/portfolio
+- **URL:** `/api/portfolio`
 - **Method:** `GET`
 - **URL params:** None
 - **Data params:** None
-
-* **Success response example:**
+- **Success response example:**
 
 ```
 {
+    id: "5b51ee16a0e0b72574d2c21d"
     balance: 20000,
     holdings: {}
 }
@@ -100,11 +98,11 @@ Returns json data for user's portfolio, or creates and returns default portfolio
 
 ### Update portfolio
 
-Returns json data for user's portfolio, or creates and returns default portfolio if one does not exist.
+Updates user's portfolio.
 
-- **URL:** /api/portfolio/:id
+- **URL:** `/api/portfolio/:id`
 - **Method:** `PUT`
-- **URL params:** `id=[integer]`
+- **URL params:** `id=[string]`
 - **Data params:**
 
 ```
@@ -123,14 +121,13 @@ Returns json data for user's portfolio, or creates and returns default portfolio
 
 ### Show all transactions
 
-Returns array of transactions for user
+Returns array of transactions for user.
 
-- **URL:** /api/transactions
+- **URL:** `/api/transactions`
 - **Method:** `GET`
 - **URL params:** None
 - **Data params:** None
-
-* **Success response example:**
+- **Success response example:**
 
 ```
 [
@@ -150,18 +147,18 @@ Returns array of transactions for user
 
 Creates and returns new transaction.
 
-- **URL:** /api/transactions
+- **URL:** `/api/transactions`
 - **Method:** `POST`
 - **URL params:** None
 - **Data params:**
 
 ```
 {
-    date: "2017-01-01",
-    type: "Buy",
-    symbol: "BTC",
-    price: 1017.20,
-    amount: 1
+    date: [string],
+    type: [string],
+    symbol: [string],
+    price: [number],
+    amount: [number]
 }
 ```
 
@@ -177,39 +174,3 @@ Creates and returns new transaction.
     amount: 1
 }
 ```
-
----
-
-### Users
-
-`POST` `/api/users`
-Create a new user. Sends username in response.
-
-### Authentication
-
-`POST` `/api/auth/login`
-Authenticate and log in user. Sends JWT token in response.
-
-`POST` `/api/auth/refresh`
-Refresh JWT. Sends fresh token in response.
-
-### Prices
-
-`GET` `/api/prices?date={date}`
-Get price data for a basket of cryptocurrencies in the 7-day interval leading up to query parameter {date}. Sends array of price data in response.
-
-### Portfolio
-
-`GET` `/api/portfolio`
-Get user's portfolio, or create default portfolio if one does not exist. Sends portfolio object in response.
-
-`PUT` `/api/portfolio/:id`
-Update user's portfolio by passing new balance and holdings in request body.
-
-### Transactions
-
-`GET` `/api/transactions`
-Get user's transactions. Sends array of transactions in response.
-
-`POST` `/api/transactions`
-Create new transaction. Sends newly created transaction in response.
