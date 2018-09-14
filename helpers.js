@@ -1,6 +1,6 @@
 const subDays = require('date-fns/sub_days');
 const format = require('date-fns/format');
-const moment = require('moment');
+const differenceInDays = require('date-fns/difference_in_days');
 const coinWatchlist = {
   ADA: 'Cardano',
   AE: 'Aeternity',
@@ -65,10 +65,10 @@ function parsePriceData(data) {
       current: _round(coin.close)
     };
     // Check if coin price seven days earlier exists
-    const momentA = moment(coin.close_timestamp);
-    const momentB = moment(coin.open_timestamp);
+    const dateA = new Date(coin.close_timestamp);
+    const dateB = new Date(coin.open_timestamp);
 
-    if (momentA.diff(momentB, 'days') === 7) {
+    if (differenceInDays(dateA, dateB) === 7) {
       coinDatum.sevenDaysAgo = _round(coin.open);
     } else {
       coinDatum.sevenDaysAgo = 'N/A';
