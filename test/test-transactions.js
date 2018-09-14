@@ -3,7 +3,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const moment = require('moment');
+const format = require('date-fns/format');
 const { app, runServer, closeServer } = require('../server');
 const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
 
@@ -25,9 +25,10 @@ function seedTransactionData() {
 }
 
 function randomDate(start, end) {
-  return moment(
-    new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
-  ).format('YYYY-MM-DD');
+  return format(
+    new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())),
+    'YYYY-MM-DD'
+  );
 }
 
 function generateTransactionData() {
