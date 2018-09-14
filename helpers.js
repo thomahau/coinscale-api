@@ -1,3 +1,5 @@
+const subDays = require('date-fns/sub_days');
+const format = require('date-fns/format');
 const moment = require('moment');
 const coinWatchlist = {
   ADA: 'Cardano',
@@ -48,9 +50,8 @@ const coinWatchlist = {
 };
 
 function getStartDate(date) {
-  return moment(date)
-    .subtract(7, 'days')
-    .format('YYYY-MM-DD');
+  const startDate = subDays(new Date(date), 7);
+  return format(startDate, 'YYYY-MM-DD');
 }
 
 function parsePriceData(data) {
